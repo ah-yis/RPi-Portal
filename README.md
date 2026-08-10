@@ -1,2 +1,2 @@
 # RPi-Portal
-Emulator for toys-to-life games, designed for RPi devices
+Python-based emulator for toys-to-life games on most platforms, using a RPi4. Based on implementation from RPCS3

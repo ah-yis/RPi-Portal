@@ -1,0 +1,189 @@
+/*this is such a mess, please clean this up or redo it completely...*/
+
+:root {
+  --bg-colour-1: #0a0c1e;
+  --heading-colour: #d1d5f0;
+  --heading-sec-colour: #aeb3d6;
+  --paragraph-colour: #e3e2ff;
+}
+
+body {
+    background: #0a0c1e;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+h1 {
+    color: var(--heading-colour);
+    text-align: center;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    font-size: 48px;
+}
+h2 {
+    color: var(--heading-sec-colour);
+    text-align: left;
+    margin-left: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    font-size: 45px;
+}
+h3 {
+    color: var(--heading-sec-colour);
+    text-align: left;
+    margin-left: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    font-size: 35px;
+}
+h4 {
+    color: var(--heading-sec-colour);
+    text-align: left;
+    font-style: italic;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+}
+h5 {
+    color: var(--heading-sec-colour);
+    text-align: left;
+    font-style: italic;
+    font-size: large;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+}
+p {
+    color: var(--paragraph-colour);
+    font-size: 32px;
+    text-align: left;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    line-height: 45px;
+}
+details {
+    color: var(--paragraph-colour);
+    font-size: 32px;
+    text-align: left;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    line-height: 45px;
+    font-style: italic;
+}
+
+.fake-a {
+  text-decoration: none;
+  color: var(--heading-sec-colour);
+  font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+  font-size: 32px;
+}
+.fake-a:link {
+  color: var(--heading-sec-colour);
+}
+.fake-a:hover {
+  color: var(--heading-sec-colour);
+}
+.fake-a:visited {
+  color: var(--heading-sec-colour);
+}
+
+.chibi-p {
+  font-size: 24px;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+
+li {
+    color: white;
+    font-size: 18px;
+    text-align: left;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+}
+
+/*.entry-title::after {
+  border-bottom: 3px dotted white;
+  bottom: 2px;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+}*/
+
+.date-text {
+    color: var(--heading-sec-colour);
+    font-size: 20px;
+    text-align: left;
+    margin-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    line-height: 2px;
+}
+
+.button {
+  border: 5px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.date {
+  align-items:normal;
+}
+
+.basic {background-color: #0a0c1e;}
+
+a {
+    font-size: 32px;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    line-height: 45px;
+}
+a:link {
+  color: #e3e2ff;
+}
+
+a:visited {
+  color: #292762;
+}
+
+a:hover {
+  color: #3f3d7d;
+}
+
+
+ .nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #15161C;
+}
+
+.nav li {
+  float: left;
+  font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+}
+
+.nav li a {
+  display: block;
+  color: #BFC7FF;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+}
+
+.nav li a:hover {
+  background-color: #35394A;
+  /*font-weight: bold;*/
+}

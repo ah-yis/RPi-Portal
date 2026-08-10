@@ -1,0 +1,19 @@
+[project]
+name = "rpi-portal"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+    "pycryptodome>=3.23.0",
+    "pydantic>=2.13.4",
+    "starlette>=1.6.0",
+]
+
+[project.scripts]
+rpi-portal = "rpi_portal:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
