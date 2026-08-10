@@ -20,9 +20,23 @@ Remember that in it's current state it's practically unusable.
 - A television (optional)
 ## Installation
 1. Set up any reasonable version of Debian on your Pi, preferably with OpenSSH set up. Wi-Fi is obviously mandatory to control it via a web interface. You can use Raspberry Pi Imager to make things easier.
-2. Clone the repo with: ```git clone https://github.com/ah-yis/RPi-Portal.git```
-3. Enter the repo and make `startup.sh` executable, run: ```cd RPi-Portal && sudo chmod +x startup.sh```
-4. Finally, run: ```sudo ./startup.sh```
+
+2. Clone the repo with: 
+```
+git clone https://github.com/ah-yis/RPi-Portal.git
+```
+
+3. Enter the repo and make `startup.sh` executable, run: 
+```
+cd RPi-Portal && sudo chmod +x startup.sh
+```
+
+4. Finally, run: 
+```
+sudo ./startup.sh
+```
+
 5. The script will ask you to configure it. So, configure it. You should probably stick to the default configuration, but it doesn't hurt to have options.
+
 ## Usage
-You can now wait for your Pi to startup, and visit http://<hostname> to see the website and enjoy your obsolete cash-grab children's game!
+You can now wait for your Pi to startup, and visit `http://<hostname>` to see the website and enjoy your obsolete cash-grab children's game!
