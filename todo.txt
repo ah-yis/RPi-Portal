@@ -1,0 +1,9 @@
+fix startup.sh
+clean up the project
+make a webui that works and stuff
+add support for colors
+add support for other games
+
+SLOT 0 --- playset
+SLOT 1 --- player1
+SLOT 2 --- 

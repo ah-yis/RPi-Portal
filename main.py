@@ -1,6 +1,8 @@
 # --- main.py
 # using fastapi to create a webui, communicating with infinity.py via engine.py
-# use startup.sh to run
+# use startup.sh to run JK THAT SCRIPT DOESNT WORK!!11`1`111111111
+# realizing that it might be difficult in the long run to add other games...
+# ill give it a shot maybe probably but not right now
 
 import os
 import logging
@@ -28,8 +30,8 @@ async def lifespan(app: FastAPI):
         infinityLog.info("USB engine thread started.")
     else:
         infinityLog.warning(
-            f"{HIDG_PATH} not found - USB gadget engine not started. "
-            "REST API is still available for testing."
+            f"{HIDG_PATH} not found. "
+            "REST API is still available."
         )
 
     yield
@@ -58,7 +60,6 @@ def readRoot():
 
 @app.get("/figures")
 def getFigures():
-    """Return the state of all 9 slots."""
     result = {}
     for i, fig in enumerate(base.figures):
         result[i] = {
