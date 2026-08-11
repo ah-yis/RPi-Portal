@@ -5,16 +5,16 @@ Remember that in it's current state it's practically unusable.
 # To-Do List
 - [x] Rewrite RPCS3's Infinity base code in Python
 - [x] Set up FastAPI to interface with emulated base
-- [ ] Create a proper WebUI instead of copy pasting bin paths into Swagger docs
 - [ ] Fix startup.sh script so you can actually properly set it up
+- [ ] Create a proper WebUI instead of copy pasting bin paths into Swagger docs
 - [ ] Clean up files and add comments within the project
-- [ ] Add support for colors on the slots (most emulators didn't implement it because it's absolutely useless)
 - [ ] Add support for Lego Dimensions
 - [ ] Add support for Skylanders
+- [ ] Add support for colors on the slots (most emulators didn't implement it because it's absolutely useless)
 
 # Instructions
 ## Requirements
-- Raspberry Pi with USB-OTG support. If your Pi belongs to this list, you're good to go
+- Raspberry Pi with USB-OTG support. If your Pi is in this list, you're good to go:
     - Zero
     - Zero W
     - Zero 2W
@@ -34,17 +34,12 @@ Remember that in it's current state it's practically unusable.
 git clone https://github.com/ah-yis/RPi-Portal.git
 ```
 
-3. Enter the repo and make `startup.sh` executable, run: 
+3. Enter the repo and run the startup script: 
 ```
-cd RPi-Portal && sudo chmod +x startup.sh
-```
-
-4. Finally, run: 
-```
-sudo ./startup.sh
+cd RPi-Portal && sudo ./startup.sh
 ```
 
-5. The script will ask you to configure it. So, configure it. You should probably stick to the default configuration, but it doesn't hurt to have options.
+4. The script will ask you to configure it. So, configure it. You should probably stick to the default configuration, but it doesn't hurt to have options.
 
 ## Usage
-You can now wait for your Pi to startup, and visit `http://<hostname>` to see the website and enjoy your obsolete cash-grab children's game!
+You can now wait for your Pi to startup, and visit `http://<hostname>:80` to see the website and enjoy your obsolete cash-grab children's game!

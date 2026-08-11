@@ -47,16 +47,16 @@ button {
   display: inline-block;
 }
 .icon-settings {
-  -webkit-mask-image: url('web/resources/icons/nav/settings-lucide.svg');
-  mask-image: url('web/resources/icons/nav/settings-lucide.svg');
+  -webkit-mask-image: url('icons/nav/settings-lucide.svg');
+  mask-image: url('icons/nav/settings-lucide.svg');
 }
 .icon-reboot {
-  -webkit-mask-image: url('web/resources/icons/nav/reboot-lucide.svg');
-  mask-image: url('web/resources/icons/nav/reboot-lucide.svg');
+  -webkit-mask-image: url('icons/nav/reboot-lucide.svg');
+  mask-image: url('icons/nav/reboot-lucide.svg');
 }
 .icon-shutdown {
-  -webkit-mask-image: url('web/resources/icons/nav/shutdown-lucide.svg');
-  mask-image: url('web/resources/icons/nav/shutdown-lucide.svg');
+  -webkit-mask-image: url('icons/nav/shutdown-lucide.svg');
+  mask-image: url('icons/nav/shutdown-lucide.svg');
 }
 
 h1 {
@@ -106,8 +106,8 @@ p {
   transition: background-color 0.15s ease;
 
   &.hex {
-    -webkit-mask-image: url('web/resources/icons/infinity/hex.svg');
-    mask-image: url('web/resources/icons/infinity/hex.svg');
+    -webkit-mask-image: url('icons/infinity/hex.svg');
+    mask-image: url('icons/infinity/hex.svg');
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
@@ -116,8 +116,8 @@ p {
   }
 
   &.circle {
-    -webkit-mask-image: url('web/resources/icons/infinity/circle.svg');
-    mask-image: url('web/resources/icons/infinity/circle.svg');
+    -webkit-mask-image: url('icons/infinity/circle.svg');
+    mask-image: url('icons/infinity/circle.svg');
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
