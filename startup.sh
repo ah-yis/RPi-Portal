@@ -45,30 +45,32 @@ read -p "Would you like to setup a systemd service, to autostart this after boot
 
 response=${response,,}
 
-if response == "y"
+if $response == "y"
+
 then
-    portalDir = $(pwd)
-    fileDir = "/etc/systemd/system/rpi-portal.service"
+portalDir = $(pwd)
+fileDir = "/etc/systemd/system/rpi-portal.service"
 
-    cat <<EOF > $fileDir
-    [Unit]
-    Description=RPi-Portal
-    After=network.target
+cat <<EOF > $fileDir
+[Unit]
+Description=RPi-Portal
+After=network.target
 
-    [Service]
-    ExecStart=/bin/bash $fileDir 
-    Restart=on-failure
+[Service]
+ExecStart=/bin/bash $fileDir 
+Restart=on-failure
 
-    [Install]
-    WantedBy=multi-user.target
-    `EOF
+[Install]
+WantedBy=multi-user.target
+EOF
 
-    systemctl daemon-reload
-    systemctl enable --now rpi-portal.service
+systemctl daemon-reload
+systemctl enable --now rpi-portal.service
 
-    echo "Done!"
+echo "Done!"
+
 else
-    echo "NOT creating a systemd service..."
+echo "NOT creating a systemd service..."
 fi
 
 # --- run descriptor.sh
