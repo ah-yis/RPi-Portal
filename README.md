@@ -1,5 +1,5 @@
 # RPi-Portal
-Python-based emulator for toys-to-life games on most platforms, using a RPi4. Based on implementation from RPCS3.
+Python-based emulator for toys-to-life games on most platforms, using a Raspberry Pi. Based on implementation from RPCS3.
 Remember that in it's current state it's practically unusable.
 
 # To-Do List
@@ -14,11 +14,17 @@ Remember that in it's current state it's practically unusable.
 
 # Instructions
 ## Requirements
-- Raspberry Pi with dwc2 chipset (ie. NOT RPi3B(+))
+- Raspberry Pi with USB-OTG support. If your Pi belongs to this list, you're good to go
+    - Zero
+    - Zero W
+    - Zero 2W
+    - 3A
+    - 4B
+    - 5
 - USB-C - USB-A cable
 - The game you want to play
 - Local internet
-- A game console
+- Any game console except Xbox 360 and Xbox One (proprietary security)
 - A television (optional)
 ## Installation
 1. Set up any reasonable version of Debian on your Pi, preferably with OpenSSH set up. Wi-Fi is obviously mandatory to control it via a web interface. You can use Raspberry Pi Imager to make things easier.

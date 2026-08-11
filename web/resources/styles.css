@@ -82,6 +82,50 @@ p {
   line-height: 45px;
 }
 
+.glyph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 20px;
+}
+
+.glyph-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.glyph-row { display: flex; gap: 20px; }
+
+.glyph-shape {
+  display: block;
+  background-color: var(--text2-color);
+  transition: background-color 0.15s ease;
+
+  &.hex {
+    -webkit-mask-image: url('icons/infinity/hex.svg');
+    mask-image: url('icons/infinity/hex.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    width: 90px;
+    height: 90px;
+  }
+
+  &.circle {
+    -webkit-mask-image: url('icons/infinity/circle.svg');
+    mask-image: url('icons/infinity/circle.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    width: 64px;
+    height: 64px;
+  }
+}
+
 /* i heart easter eggs
 .fake-a {
   text-decoration: none;

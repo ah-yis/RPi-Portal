@@ -1,6 +1,6 @@
 # --- main.py
 # using fastapi to create a webui, communicating with infinity.py via engine.py
-# use startup.sh to run JK THAT SCRIPT DOESNT WORK!!11`1`111111111
+# use startup.sh to run JK THAT SCRIPT DOESNT WORK!!11`1`111111111 (maybe it does now)
 # realizing that it might be difficult in the long run to add other games...
 # ill give it a shot maybe probably but not right now
 
