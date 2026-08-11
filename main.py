@@ -25,8 +25,6 @@ infinityLog = logging.getLogger("infinity")
 base = InfinityBase()
 stopEvent = threading.Event()
 
-app.mount("/web", StaticFiles(directory="web"), name="web")
-
 # starts the usb engine, after which you can see the base is picked up by the game
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -46,6 +44,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="RPi-Portal", lifespan=lifespan)
+app.mount("/web", StaticFiles(directory="web"), name="web")
 
 
 # requests for placing/removing figures through post
