@@ -11,7 +11,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from starlette import FileResponse
+#from starlette import FileResponse
 
 # importing classes and functions from infinity.py and engine.py
 from infinity import InfinityBase, FIGURE_DATA_SIZE
