@@ -28,7 +28,7 @@ else
 fi
 
 # --- check for pyenv
-if -d "pyenv" 
+if $(-d "pyenv") 
 then
     echo "pyenv already exists";
 else
@@ -43,7 +43,7 @@ fi
 
 read -p "Would you like to setup a systemd service, to autostart this after boot? (Y/n): " response
 
-response = "${response,,}"
+response=${response,,}
 
 if response == "y"
 then
@@ -61,7 +61,7 @@ then
 
     [Install]
     WantedBy=multi-user.target
-    EOF
+    `EOF
 
     systemctl daemon-reload
     systemctl enable --now rpi-portal.service
