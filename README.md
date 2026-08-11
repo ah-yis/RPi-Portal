@@ -3,6 +3,8 @@ Python-based emulator for toys-to-life games on most platforms, using a RPi4. Ba
 Remember that in it's current state it's practically unusable.
 
 # To-Do List
+- [-] Rewrite RPCS3's Infinity base code in Python
+- [-] Set up FastAPI to interface with emulated base
 - [ ] Create a proper WebUI instead of copy pasting bin paths into Swagger docs
 - [ ] Fix startup.sh script so you can actually properly set it up
 - [ ] Clean up files and add comments within the project

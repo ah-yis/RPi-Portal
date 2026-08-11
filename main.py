@@ -12,16 +12,18 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+# importing classes and functions from infinity.py and engine.py
 from infinity import InfinityBase, FIGURE_DATA_SIZE
 from engine import usbEngine, HIDG_PATH
 
+# those who log
 logging.basicConfig(level=logging.INFO)
 infinityLog = logging.getLogger("infinity")
 
 base = InfinityBase()
 stopEvent = threading.Event()
 
-
+# starts the usb engine, after which you can see the base is picked up by the game
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     if os.path.exists(HIDG_PATH):
@@ -30,20 +32,19 @@ async def lifespan(app: FastAPI):
         infinityLog.info("USB engine thread started.")
     else:
         infinityLog.warning(
-            f"{HIDG_PATH} not found. "
+            f"{HIDG_PATH} not found."
             "REST API is still available."
         )
 
     yield
 
-    # Shutdown
     stopEvent.set()
 
 
 app = FastAPI(title="RPi-Portal", lifespan=lifespan)
 
 
-# figure requests
+# requests for placing/removing figures through post
 class PlaceFigureRequest(BaseModel):
     position: int
     filePath: str
@@ -51,13 +52,25 @@ class PlaceFigureRequest(BaseModel):
 class RemoveFigureRequest(BaseModel):
     position: int
 
+# ----------------------------------------------------
+# -------------------## WEB UI ##---------------------
+# ----------------------------------------------------
 
-# routes
+# add functionality to power, reboot, hostname, game-switcher....... someday
+# add functionality to settings too while youre at it
+# and also display the website???
+
+
+
+# ----------------------------------------------------
+# ------------------## INFINITY ##--------------------
+# ----------------------------------------------------
+
 @app.get("/")
 def readRoot():
     return {"status": "ok", "hardwareConnected": os.path.exists(HIDG_PATH)}
 
-
+# shows the status of the base, ie. what figures are/arent placed
 @app.get("/figures")
 def getFigures():
     result = {}
@@ -68,7 +81,7 @@ def getFigures():
         }
     return result
 
-
+# places the figures on the base based on given position and filepath
 @app.post("/figures/place")
 def placeFigure(req: PlaceFigureRequest):
     if not (0 <= req.position < len(base.figures)):
@@ -96,7 +109,7 @@ def placeFigure(req: PlaceFigureRequest):
 
     return {"status": "ok", "number": number, "position": req.position}
 
-
+# removes figure based on position
 @app.post("/figures/remove")
 def removeFigure(req: RemoveFigureRequest):
     if not (0 <= req.position < len(base.figures)):
@@ -108,7 +121,7 @@ def removeFigure(req: RemoveFigureRequest):
 
     return {"status": "ok", "position": req.position}
 
-
+# removes all figures altogether
 @app.post("/figures/remove_all")
 def removeAllFigures():
     removed = []

@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nameless website</title>
-    <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="resources/styles.css">
-</head>
-<body>
-    <!--top bar with the funny buttons in it-->
-    <nav>
-        <ul class="nav">
-            <li><a href="https://github.com/ah-yis/RPi-Portal">RPi-Portal</a></li>
-            <li><h4>http://hostname:8000</h4></li>
-            <li><select name="game" id="game">
-                <option value="infinity">Infinity</option>
-                <option value="dimensions">Dimensions</option>
-                <option value="kylanders">Skylanders</option>
-            </select></li>
-            <li><a href="about.html">SET</a></li>
-            <li><a href="settings.html">REB</a></li>
-            <li><a href="about.html">OFF</a></li>
-        </ul>
-    </nav>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>nameless website</title>
+        <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="resources/styles.css">
+    </head>
+    <body>
+        <!--top bar with the funny buttons in it-->
+        <nav>
+            <ul class="nav">
+                <li><a href="https://github.com/ah-yis/RPi-Portal">RPi-Portal</a></li>
+                <li><h4>http://hostname:8000</h4></li>
+                <li><select name="game" id="game">
+                    <option value="infinity">Infinity</option>
+                    <option value="dimensions">Dimensions</option>
+                    <option value="skylanders">Skylanders</option>
+                </select></li>
+                <li><button aria-label="Settings"><span class="icon-settings"></span></button></li>
+                <li><button aria-label="Reboot"><span class="icon-reboot"></span></button></li>
+                <li><button aria-label="Shutdown"><span class="icon-shutdown"></span></button></li>
+            </ul>
+        </nav>
 
-<div class="main-body">
-    <div class="glyph">
-        <!--this is for the glyph for the base's slots-->
-    </div>
-    <div class="figure-list">
-        <!--this houses all the figures in a grid, along with a search+filter tool-->
-    </div>
-</div>
+            <!--um for settings you need:  
+                1. theming
+                2. check for updates
+                3. about/credits/etc
+            -->
+
+        <div class="main-body">
+            <div class="glyph">
+                <!--this is for the glyph for the base's slots-->
+            </div>
+            <div class="figure-list">
+                <!--this houses all the figures in a grid, along with a search+filter tool-->
+            </div>
+        </div>
+    </body>
+</html>

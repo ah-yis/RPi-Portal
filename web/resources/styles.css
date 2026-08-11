@@ -11,7 +11,53 @@
   --link-click: ;
 }
 
-body { background: var(--bg-color); }
+* {
+  box-sizing: border-box;
+}
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 10px;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: var(--bg3-color);
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 9999px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+
+.icon-settings, .icon-reboot, .icon-shutdown {
+  mask-size: contain;
+  background-color: var(--text-color);
+  width: 27px;
+  height: 27px;
+  display: inline-block;
+}
+.icon-settings {
+  -webkit-mask-image: url('icons/settings-lucide.svg');
+  mask-image: url('icons/settings-lucide.svg');
+}
+.icon-reboot {
+  -webkit-mask-image: url('icons/reboot-lucide.svg');
+  mask-image: url('icons/reboot-lucide.svg');
+}
+.icon-shutdown {
+  -webkit-mask-image: url('icons/shutdown-lucide.svg');
+  mask-image: url('icons/shutdown-lucide.svg');
+}
 
 h1 {
   color: var(--h1-color);
@@ -28,7 +74,7 @@ h4 {
   font-size: 22px;
 }
 p {
-  color: var(--paragraph-colour);
+  color: var(--text-color);
   font-size: 32px;
   text-align: left;
   margin-left: 10px;
@@ -36,6 +82,7 @@ p {
   line-height: 45px;
 }
 
+/* i heart easter eggs
 .fake-a {
   text-decoration: none;
   color: var(--heading-sec-colour);
@@ -51,6 +98,7 @@ p {
 .fake-a:visited {
   color: var(--heading-sec-colour);
 }
+*/
 
 li {
   color: white;
@@ -59,60 +107,64 @@ li {
   margin-left: 10px;
   font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
 }
-
-/*
-.button {
-  border: 5px;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-*/
-
-.entry {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 150px;
-  margin-right: 150px;
-}
-
 a {
   font-size: 32px;
   font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
   line-height: 45px;
-}
-a:link { color: var(--link-color); }
-a:visited { color: var(--link-click);}
-a:hover { color: var(--link-hover); }
 
+  &:link { color: var(--link-color); }
+  &:visited { color: var(--link-click);}
+  &:hover { color: var(--link-hover); }
+}
+
+.main-body {
+  display: grid;
+  grid-template-areas: "glyph figure-list";
+  grid-template-columns: 2fr 2fr;
+  gap: 10px;
+  background-color: var(--bg-color);
+  padding: 0;
+  padding-top: 10px;
+  flex: 1;
+  min-height: 0;
+
+  & div.glyph {
+      grid-area: glyph;
+      background-color: var(--bg2-color);
+      border-radius: 60px;
+  }
+
+  & div.figure-list {
+      grid-area: figure-list;
+      background-color: var(--bg2-color);
+      border-radius: 60px;
+  }
+}
 
 .nav {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0 16px;
   overflow: hidden;
   background-color: var(--bg2-color);
   display: flex;
   align-items: center;
+  border-radius: 84cm;
+
+  & li {
+    float: left;
+    font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+
+    &:nth-last-child(4) { margin-left: auto; }
+
+    & a {
+        display: block;
+        color: var(--text-color);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
+    }
+  }
 }
 
-.nav li {
-  float: left;
-  font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
-}
-.nav li:nth-last-child(4) { margin-left: auto; }
-
-.nav li a {
-  display: block;
-  color: var(--text-color);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
-}

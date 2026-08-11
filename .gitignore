@@ -1,4 +1,7 @@
-__pycache__
+reference/
+.vscode/
+__pycache__/
+
 todo.txt
 uv.lock
-reference/
+
