@@ -10,8 +10,8 @@ import threading
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
-#from starlette import FileResponse
 
 # importing classes and functions from infinity.py and engine.py
 from infinity import InfinityBase, FIGURE_DATA_SIZE
@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
         infinityLog.info("USB engine thread started.")
     else:
         infinityLog.warning(
-            f"{HIDG_PATH} not found."
+            f"{HIDG_PATH} not found. "
             "REST API is still available."
         )
 
@@ -61,15 +61,15 @@ class RemoveFigureRequest(BaseModel):
 # add functionality to settings too while youre at it
 # and also display the website???
 
+@app.get("/")
+async def displayPage():
+    return FileResponse('web/index.html')
+
 
 
 # ----------------------------------------------------
 # ------------------## INFINITY ##--------------------
 # ----------------------------------------------------
-
-@app.get("/")
-async def displayPage():
-    return FileResponse('web/index.html')
 
 # shows the status of the base, ie. what figures are/arent placed
 @app.get("/figures")
