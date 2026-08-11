@@ -11,6 +11,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 # importing classes and functions from infinity.py and engine.py
@@ -23,6 +24,8 @@ infinityLog = logging.getLogger("infinity")
 
 base = InfinityBase()
 stopEvent = threading.Event()
+
+app.mount("/web", StaticFiles(directory="web"), name="web")
 
 # starts the usb engine, after which you can see the base is picked up by the game
 @asynccontextmanager
@@ -64,8 +67,6 @@ class RemoveFigureRequest(BaseModel):
 @app.get("/")
 async def displayPage():
     return FileResponse('web/index.html')
-
-
 
 # ----------------------------------------------------
 # ------------------## INFINITY ##--------------------
