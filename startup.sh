@@ -34,7 +34,7 @@ then
 else
     echo "Creating pyenv and installing dependencies...";
     bash python3 -m venv pyenv
-    bash ./pyenv/bin/pip install -r requirements.txt
+    bash pyenv/bin/pip install -r requirements.txt
 fi
 
 # --- check if script is run via systemd services
@@ -45,7 +45,7 @@ read -p "Would you like to setup a systemd service, to autostart this after boot
 
 response=${response,,}
 
-if $response == "y";
+if $response = "y";
 then
 portalDir = $(pwd)
 fileDir = "/etc/systemd/system/rpi-portal.service"
