@@ -9,6 +9,7 @@ dependencies = [
     "pycryptodome>=3.23.0",
     "pydantic>=2.13.4",
     "starlette>=1.6.0",
+    "uvicorn>=0.52.1",
 ]
 
 [project.scripts]

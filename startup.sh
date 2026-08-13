@@ -1,80 +1,71 @@
 #!/bin/bash
+set -euo pipefail
 
 # --- check for updates
-#       lol ill setup updating when i push to github
-#       ask the user to check for updates every launc, if they want (default yes)
+#       TODO: check for updates on launch once this is pushed to GitHub (default yes)
 
-# --- check for python
-# actually python might not be necessary, since i get break system package errors
-# instead, use pyenv
-
-# --- check for python
-if command -v python3 &> /dev/null
-then
+# --- check for python ---
+if command -v python3 &> /dev/null; then
     echo "Python is already installed."
 else
     echo "Installing Python..."
-    apt install python3 python3-venv -y
+    sudo apt update
+    sudo apt install -y python3 python3-venv
 fi
 
-# --- check for uv
-if command -v uv &> /dev/null
-then
+# --- check for uv ---
+if command -v uv &> /dev/null; then
     echo "uv is already installed."
 else
     echo "Installing uv..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# --- check for pyenv
-if [ -d "pyenv" ];
-then
-    echo "pyenv already exists";
+# --- install project dependencies via uv (replaces manual venv + pip) ---
+echo "Syncing project dependencies..."
+uv sync
+
+# --- set up the USB gadget descriptor ---
+chmod +x descriptor.sh
+sudo ./descriptor.sh
+
+# --- offer to set up a systemd service ---
+if systemctl is-active --quiet rpi-portal.service 2>/dev/null; then
+    echo "rpi-portal.service already running, skipping setup."
 else
-    echo "Creating pyenv and installing dependencies...";
-    bash python3 -m venv pyenv
-    bash pyenv/bin/pip install -r requirements.txt
-fi
+    read -p "Would you like to set up a systemd service to autostart on boot? (Y/n): " response
+    response=${response,,}
+    response=${response:-y} 
 
-# --- check if script is run via systemd services
-#       ... if not, ask the user if they want to make a systemd service to run on startup
-#       ... then make the systemd service...
+    if [ "$response" = "y" ]; then
+        portalDir=$(pwd)
+        serviceFile="/etc/systemd/system/rpi-portal.service"
 
-read -p "Would you like to setup a systemd service, to autostart this after boot? (Y/n): " response
-
-response=${response,,}
-
-if $response = "y";
-then
-portalDir = $(pwd)
-fileDir = "/etc/systemd/system/rpi-portal.service"
-
-cat <<tis > $fileDir
+        sudo bash -c "cat > '$serviceFile'" <<EOF
 [Unit]
 Description=RPi-Portal
 After=network.target
 
 [Service]
-ExecStart=/bin/bash $fileDir 
+WorkingDirectory=$portalDir
+ExecStart=$(command -v uv) run uvicorn main:app --host 0.0.0.0 --port 80
 Restart=on-failure
+User=root
 
 [Install]
 WantedBy=multi-user.target
-tis
+EOF
 
-systemctl daemon-reload
-systemctl enable --now rpi-portal.service
+        sudo systemctl daemon-reload
+        sudo systemctl enable --now rpi-portal.service
 
-echo "Done!"
-
-else
-echo "NOT creating a systemd service..."
+        echo "Service created. RPi-Portal will autostart on boot."
+    else
+        echo "NOT creating a systemd service..."
+    fi
 fi
 
-# --- run descriptor.sh
-chmod a+x descriptor.sh
-sh ./descriptor.sh
-
-# --- start api
+# --- start api!!!!!
 uv run uvicorn main:app --host 0.0.0.0 --port 80

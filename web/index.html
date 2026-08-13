@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>nameless website</title>
-        <link rel="icon" href="web/resources/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="web/resources/styles.css">
+
+        <title>RPi-Portal</title>
+        <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="resources/styles.css">
     </head>
     <body>
         <!--top bar with the funny buttons in it-->
@@ -30,13 +31,47 @@
                 3. about/credits/etc
             -->
 
+            <!--settings is for nerds LMAOOOOO-->
+
         <div class="main-body">
-            <div class="glyph">
-                <!--this is for the glyph for the base's slots-->
+          <div class="glyph">
+
+            <button class="glyph-btn" id="glyphHex" data-slot="hex" data-occupied="true" aria-pressed="false" aria-label="Hex Slot">
+              <span class="glyph-shape hex"></span>
+            </button>
+
+            <div class="glyph-row">
+
+              <button class="glyph-btn" id="glyphP1" data-slot="p1" data-occupied="true" aria-pressed="false" aria-label="Player 1 Slot">
+                <span class="glyph-shape circle1"></span>
+              </button>
+
+              <button class="glyph-btn" id="glyphP2" data-slot="p2" data-occupied="false" aria-pressed="false" aria-label="Player 2 Slot">
+                <span class="glyph-shape circle2"></span>
+              </button>
+
             </div>
-            <div class="figure-list">
-                <!--this houses all the figures in a grid, along with a search+filter tool-->
+          </div>
+      
+          <div class="figure-list" data-view="browse" id="figureList">
+        
+            <div class="browse-view">
+            	<div class="picker-search">
+            		<input type="search" id="figureSearch" placeholder="Search figures…" autocomplete="off" />
+            	</div>
+            
+            	<div class="picker-categories" id="pickerCategories"></div>
+            
+            	<div class="picker-grid" id="pickerGrid"></div>
             </div>
+        
+            <div class="status-view" id="statusView"></div>
+        
+          </div>
         </div>
+
+        <script src="scripts/nav.js"></script>
+        <script src="scripts/search.js"></script>
+        <script src="scripts/slot.js"></script>
     </body>
 </html>

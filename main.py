@@ -1,77 +1,80 @@
 # --- main.py
-# using fastapi to create a webui, communicating with infinity.py via engine.py
-# use startup.sh to run JK THAT SCRIPT DOESNT WORK!!11`1`111111111 (maybe it does now)
-# realizing that it might be difficult in the long run to add other games...
-# ill give it a shot maybe probably but not right now
+# ugh does the working you know how it is
 
 import os
+import subprocess
 import logging
 import threading
+import time
+from pathlib import Path
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-# importing classes and functions from infinity.py and engine.py
 from infinity import InfinityBase, FIGURE_DATA_SIZE
 from engine import usbEngine, HIDG_PATH
+from catalog import scanCatalog
 
-# those who log
+WEB_ROOT = Path(__file__).parent / "web"
+RESOURCES_ROOT = WEB_ROOT / "resources"
+
 logging.basicConfig(level=logging.INFO)
 infinityLog = logging.getLogger("infinity")
 
 base = InfinityBase()
 stopEvent = threading.Event()
 
-# starts the usb engine, after which you can see the base is picked up by the game
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # startup
     if os.path.exists(HIDG_PATH):
         thread = threading.Thread(target=usbEngine, args=(base, stopEvent), daemon=True)
         thread.start()
         infinityLog.info("USB engine thread started.")
     else:
         infinityLog.warning(
-            f"{HIDG_PATH} not found. "
-            "REST API is still available."
+            f"{HIDG_PATH} not found - USB gadget engine not started. "
+            "REST API is still available for testing."
         )
 
     yield
 
+    # shutdown (not that one the other one)
     stopEvent.set()
 
 
 app = FastAPI(title="RPi-Portal", lifespan=lifespan)
-app.mount("/web", StaticFiles(directory="web"), name="web")
 
 
-# requests for placing/removing figures through post
+# ---------------------------------------------------------------------
+# --------------------------## MODELS ##-------------------------------
+# ---------------------------------------------------------------------
+
 class PlaceFigureRequest(BaseModel):
     position: int
     filePath: str
 
+
 class RemoveFigureRequest(BaseModel):
     position: int
 
-# ----------------------------------------------------
-# -------------------## WEB UI ##---------------------
-# ----------------------------------------------------
 
-# add functionality to power, reboot, hostname, game-switcher....... someday
-# add functionality to settings too while youre at it
-# and also display the website???
+# delays a command. uh thats baically it. we will use it to make sure
+# ...that our reboot/shutdown works correctly
+def _delayedCommand(cmd: list[str], delay: float = 1.0):
+    time.sleep(delay)
+    subprocess.run(cmd, check=False)
 
-@app.get("/")
-async def displayPage():
-    return FileResponse('web/index.html')
 
-# ----------------------------------------------------
-# ------------------## INFINITY ##--------------------
-# ----------------------------------------------------
+# ---------------------------------------------------------------------
+# -------------------------## ROUTES ##--------------------------------
+# ---------------------------------------------------------------------
 
-# shows the status of the base, ie. what figures are/arent placed
+
+# return status of all slots
 @app.get("/figures")
 def getFigures():
     result = {}
@@ -82,7 +85,8 @@ def getFigures():
         }
     return result
 
-# places the figures on the base based on given position and filepath
+
+# place stuff in the slots
 @app.post("/figures/place")
 def placeFigure(req: PlaceFigureRequest):
     if not (0 <= req.position < len(base.figures)):
@@ -110,7 +114,8 @@ def placeFigure(req: PlaceFigureRequest):
 
     return {"status": "ok", "number": number, "position": req.position}
 
-# removes figure based on position
+
+# removes stuff from slots
 @app.post("/figures/remove")
 def removeFigure(req: RemoveFigureRequest):
     if not (0 <= req.position < len(base.figures)):
@@ -122,7 +127,8 @@ def removeFigure(req: RemoveFigureRequest):
 
     return {"status": "ok", "position": req.position}
 
-# removes all figures altogether
+
+# removes stuff from ALL slots
 @app.post("/figures/remove_all")
 def removeAllFigures():
     removed = []
@@ -130,3 +136,46 @@ def removeAllFigures():
         if base.removeFigure(i):
             removed.append(i)
     return {"status": "ok", "removed": removed}
+
+
+# getting the files using catalog.py
+@app.get("/catalog")
+def getCatalog(franchise: str = "infinity"):
+    entries = scanCatalog(RESOURCES_ROOT, franchise)
+    for entry in entries:
+        entry["image"] = f"resources/{entry['image']}"
+    return entries
+
+
+# ---------------------------------------------------------------------
+# ---------------------------## SYS ##---------------------------------
+# ---------------------------------------------------------------------
+
+# reboot sys
+@app.post("/system/reboot")
+def systemReboot():
+    try:
+        threading.Thread(target=_delayedCommand, args=(["systemctl","reboot","-i"],), daemon=True).start()
+        return {"status": "ok", "message": "Rebooting..."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# shutdown sys
+@app.post("/system/shutdown")
+def systemShutdown():
+    try:
+        threading.Thread(target=_delayedCommand, args=(["systemctl","poweroff", "-i"],), daemon=True).start()
+        return {"status": "ok", "message": "Shutting down..."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ---------------------------------------------------------------------
+# --------------## THING THAT MOUNTS THE SITE ##-----------------------
+# ---------------------------------------------------------------------
+
+if WEB_ROOT.is_dir():
+    app.mount("/", StaticFiles(directory=str(WEB_ROOT), html=True), name="web")
+else:
+    infinityLog.warning(f"{WEB_ROOT} not found. fix yo directories yo")
